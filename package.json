@@ -1,0 +1,13 @@
+{
+  "name": "filepod-backend",
+  "version": "1.0.0",
+  "description": "js backend for the filepod uni project ",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+	"dev": "nodemon server.js",
+	"prod": "node server.js"
+  },
+  "author": "R. Elias Ojeda Almada",
+  "license": "MIT"
+}
