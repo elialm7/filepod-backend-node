@@ -1,5 +1,5 @@
-const getBaseLink = ()=>{
-	return '';
+const getBaseLink = () => {
+	return process.env.LINK;
 }
 
-module.exports= getBaseLink; 
+module.exports = getBaseLink; 
