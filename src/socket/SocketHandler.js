@@ -1,11 +1,10 @@
 const crypto = require('crypto');
-const { saveFile, getFile } = require('../model/FileManager.js');
+const { saveFileInMemory } = require('../model/FileManager.js');
 const getBaseLink = require('../config/Config.js');
 require('log-timestamp');
 const socketManager = (socket) => {
 
 	socket.on('enviar-archivo', (filename, filedata) => {
-
 		const uid = generateUID();
 		savetoFileSystem(uid, filename, filedata);
 		const link = genereateLink(uid);
@@ -25,7 +24,7 @@ const genereateLink = (uid) => {
 
 const savetoFileSystem = (id, filename, fileData) => {
 	console.log(`Data to save: ${id} - ${filename}`);
-	saveFile(id, filename, fileData);
+	saveFileInMemory(id, filename, fileData);
 }
 const generateUID = () => {
 	return crypto.randomBytes(16).toString('hex');

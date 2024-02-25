@@ -1,6 +1,11 @@
 
 const fs = require('fs');
 const path = require('path');
+const FileMemoryHandler = require('./FileMemoryHandler.js');
+
+
+
+// using the file system. 
 const uploadsfolder = process.env.UPLOADFOLDER;
 
 const saveFile = (uid, filename, fileData) => {
@@ -45,7 +50,28 @@ const deleteFile = (uid) => {
   }
 }
 
+// in memory implementation. 
 
-module.exports = { saveFile, getFile, deleteFile };
+const saveFileInMemory = (uid, filename, filedata) => {
+  FileMemoryHandler.saveFile({
+    filename,
+    filedata,
+    uid
+  });
+}
+
+const deleteFileFromMemory = (uid) => {
+  FileMemoryHandler.deleteFileByUid(uid);
+}
+
+const getFileFromMemory = (uid) => {
+  return FileMemoryHandler.getFileByUid(uid);
+}
+
+
+module.exports = {
+  saveFile, getFile, deleteFile,
+  saveFileInMemory, deleteFileFromMemory, getFileFromMemory
+};
 
 
