@@ -1,6 +1,5 @@
 # Backend de FilePod
-
-Bienvenido al repositorio del backend para el proyecto FilePod, desarrollado como parte de un proyecto universitario. FilePod es un sistema de gestión de archivos diseñado para facilitar el intercambio y organización de archivos entre usuarios. Este repositorio backend sirve como la implementación del lado del servidor del sistema FilePod.
+Repositorio del backend para el proyecto FilePod, desarrollado como parte de un proyecto universitario. FilePod es un sistema de gestión de archivos diseñado para facilitar el intercambio y organización de archivos entre usuarios. Este repositorio backend sirve como la implementación del lado del servidor del sistema FilePod.
 
 ## Visión general
 
