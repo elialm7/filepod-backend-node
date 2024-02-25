@@ -9,7 +9,7 @@ const socketManager = (socket) => {
 		savetoFileSystem(uid, filename, filedata);
 		const link = genereateLink(uid);
 		console.log(`Link generated: ${link}`);
-		socket.emit('archivo-guardado', link);
+		socket.emit('archivo-guardado', uid);
 	});
 
 	socket.on('disconnect', () => {
