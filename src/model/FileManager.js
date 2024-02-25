@@ -52,7 +52,7 @@ const deleteFile = (uid) => {
 
 // in memory implementation. 
 
-const saveFileInMemory = (uid, filename, filedata) => {
+const saveFileInMemory = (filename, filedata, uid) => {
   FileMemoryHandler.saveFile({
     filename,
     filedata,

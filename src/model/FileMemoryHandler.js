@@ -14,7 +14,7 @@ class FileMemoryHandler {
         return this.files.find(file => file.uid == uid);
     }
     deleteFileByUid(uid) {
-        const index = this.files.findIndex(file = file.uid = uid);
+        const index = this.files.findIndex(file => file.uid = uid);
         if (index !== -1) {
             this.files.splice(index, 1);
         }

@@ -24,7 +24,7 @@ const genereateLink = (uid) => {
 
 const savetoFileSystem = (id, filename, fileData) => {
 	console.log(`Data to save: ${id} - ${filename}`);
-	saveFileInMemory(id, filename, fileData);
+	saveFileInMemory(filename, fileData, id);
 }
 const generateUID = () => {
 	return crypto.randomBytes(16).toString('hex');

@@ -17,7 +17,7 @@ const getDownload = asyncHandler(async (req, res) => {
 	res.setHeader('Content-Type', 'application/octet-stream');
 	res.send(metadata.filedata);
 	console.log("processing deletion");
-	deleteFile(uid);
+	deleteFileFromMemory(uid);
 });
 
 module.exports = getDownload; 
