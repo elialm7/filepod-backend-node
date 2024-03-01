@@ -9,12 +9,14 @@ const socketManager = (socket) => {
 
 const handleTerminalClient = (socket) => {
 
-	socket.on('RegisterTerminalRequest', (token) => {
+	socket.on('RegisterTerminalRequest', (token, type) => {
 		if (isValidToken(token)) {
 			publishEvent("AdminTerminalRegistration", `${socket.id} es una terminal de admin valida y puede registrarse. `);
-			subscribetoEvent((event, message, date) => {
-				socket.emit('BackendListener', { event, message, date });
-			});
+			if (type === 'listener') {
+				subscribetoEvent((event, message, date) => {
+					socket.emit('BackendListener', { event, message, date });
+				});
+			}
 			socket.emit('RegisterTerminalResponse', `Terminal admin con id ${socket.id} registrado exitosamente.`);
 		} else {
 			socket.emit('InvalidToken', "El token es invalido, no puede registrarse como terminal de admin.");
@@ -51,6 +53,7 @@ const handleTerminalClient = (socket) => {
 				filestorage.deleteFilebyUID(id);
 				socket.emit('deletebyid', `El archivo con id: ${id} ha sido eliminado correctamente`);
 			} else {
+				publishEvent('TerminaldeleteById', `Terminal Admin con id ${socket.id} ha intentado borrar un archivo que ya no existe en el servidor.`);
 				socket.emit('deletebyid', `El archivo con id: ${id} no existe, por lo tanto no se puede borrar. `);
 			}
 
