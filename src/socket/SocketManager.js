@@ -2,17 +2,63 @@ const { generateUID } = require('../shared/UIDGenerator.js');
 const { subscribetoEvent, publishEvent } = require('../Events/EventManager.js');
 const filestorage = require('../services/FileStorage.js');
 const socketManager = (socket) => {
-	subscribetoEvent((event, message, date) => {
-		socket.emit('cliTerminal', { event, message, date });
-	});
 	publishEvent("Connection", `${socket.id} se ha conectado. `);
-
 	handleClient(socket);
 	handleTerminalClient(socket);
 }
+
 const handleTerminalClient = (socket) => {
 
-	//handle terminal operations here.
+	socket.on('RegisterTerminalRequest', (token) => {
+		if (isValidToken(token)) {
+			publishEvent("AdminTerminalRegistration", `${socket.id} es una terminal de admin valida y puede registrarse. `);
+			subscribetoEvent((event, message, date) => {
+				socket.emit('BackendListener', { event, message, date });
+			});
+			socket.emit('RegisterTerminalResponse', `Terminal admin con id ${socket.id} registrado exitosamente.`);
+		} else {
+			socket.emit('InvalidToken', "El token es invalido, no puede registrarse como terminal de admin.");
+			publishEvent("InvalidAdminTerminal", `${socket.id} es una terminal con token invalido, y no puede conectarse.`);
+		}
+
+	});
+
+	socket.on('FileStatusRequest', (token) => {
+		if (isValidToken(token)) {
+			publishEvent('FileStatus', "admin ha pedido el estado de los archivos en memoria");
+			socket.emit('FileStatusResponse', filestorage.getNumberOfFiles());
+		} else {
+			socket.emit('InvalidToken', "El token de operacion es invalido.");
+		}
+
+	});
+	socket.on('CleanFilesRequest', (token) => {
+
+		if (isValidToken(token)) {
+			publishEvent('CleanFilesRequest', `Terminal Admin con id: ${socket.id} ha pedido la limpieza de archivos en memoria.`);
+			filestorage.cleanfiles();
+			socket.emit('CleanFileResponse', filestorage.getNumberOfFiles());
+		} else {
+			socket.emit('InvalidToken', "El token de operacion es invalido.");
+		}
+
+
+	});
+	socket.on('DeleteByIdRequest', (id, token) => {
+		if (isValidToken(token)) {
+			if (filestorage.getFilebyUID(id)) {
+				publishEvent('DeleteByIdRequest', `Terminal Admin con id: ${socket.id} ha pedido la limpieza del archivo con id: ${socket.it} `);
+				filestorage.deleteFilebyUID(id);
+				socket.emit('deletebyid', `El archivo con id: ${id} ha sido eliminado correctamente`);
+			} else {
+				socket.emit('deletebyid', `El archivo con id: ${id} no existe, por lo tanto no se puede borrar. `);
+			}
+
+		} else {
+			socket.emit('InvalidToken', "El token de operacion es invalido.");
+		}
+
+	});
 }
 
 const handleClient = (socket) => {
@@ -31,5 +77,8 @@ const handleClient = (socket) => {
 
 }
 
+const isValidToken = (token) => {
+	return token === process.env.TOKEN;
+}
 
 module.exports = socketManager;

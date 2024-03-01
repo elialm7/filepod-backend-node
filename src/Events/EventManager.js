@@ -1,18 +1,20 @@
 const getCurrentDateTime = require('../shared/DateUtil.js');
 require('log-timestamp');
-let eventCallBack;
 
+let subscribers = [];
 let isProcessing = false;
 
 const subscribetoEvent = (callback) => {
-    eventCallBack = callback;
+    subscribers.push(callback);
 }
 
 const publishEvent = (event, message) => {
     console.log(event + " ::: " + message);
-    if (eventCallBack && !isProcessing) {
+    if (!isProcessing) {
         isProcessing = true;
-        eventCallBack(event, message, getCurrentDateTime());
+        subscribers.forEach(callback => {
+            callback(event, message, getCurrentDateTime());
+        });
         isProcessing = false;
     }
 

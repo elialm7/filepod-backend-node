@@ -30,6 +30,10 @@ class FileInMemoryManager {
         return this.files.find(file => file.uid == uid);
     }
 
+    cleanfiles() {
+        this.files = [];
+    }
+
 }
 
 
