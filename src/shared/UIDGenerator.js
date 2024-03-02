@@ -5,8 +5,8 @@ const crypto = require('crypto');
 
 
 
-const generateUID = () => {
+const generateuid = () => {
     return crypto.randomBytes(8).toString('hex');
 }
 
-module.exports = generateUID; 
+module.exports = generateuid; 

@@ -1,6 +1,7 @@
-const { generateUID } = require('../shared/UIDGenerator.js');
+
 const { subscribetoEvent, publishEvent } = require('../Events/EventManager.js');
 const filestorage = require('../services/FileStorage.js');
+const generateuid = require('../shared/UIDGenerator.js');
 const socketManager = (socket) => {
 	publishEvent("Connection", `${socket.id} se ha conectado. `);
 	handleClient(socket);
@@ -38,8 +39,9 @@ const handleTerminalClient = (socket) => {
 
 		if (isValidToken(token)) {
 			publishEvent('CleanFilesRequest', `Terminal Admin con id: ${socket.id} ha pedido la limpieza de archivos en memoria.`);
+			let cache = filestorage.getNumberOfFiles();
 			filestorage.cleanfiles();
-			socket.emit('CleanFileResponse', filestorage.getNumberOfFiles());
+			socket.emit('CleanFileResponse', cache);
 		} else {
 			socket.emit('InvalidToken', "El token de operacion es invalido.");
 		}
@@ -67,7 +69,7 @@ const handleTerminalClient = (socket) => {
 const handleClient = (socket) => {
 	socket.on('enviar-archivo', (filename, filedata) => {
 		publishEvent("upload", `id ${socket.id} ha empezado una subida de archivo.`);
-		const uid = generateUID();
+		const uid = generateuid();
 		filestorage.saveFile({ uid, filename, filedata });
 		publishEvent("uploadfinish", `id ${socket.id} ha finalizado la subida de archivo.`);
 		socket.emit('archivo-guardado', uid);
