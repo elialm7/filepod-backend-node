@@ -7,6 +7,4 @@ const getDownload = require('../controllers/FileAccessController.js');
 */
 router.route('/:id').get(getDownload);
 
-
-
 module.exports = router;
