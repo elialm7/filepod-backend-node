@@ -5,6 +5,10 @@ const { publishEvent } = require('../Events/EventManager.js');
 const getDownload = asyncHandler(async (req, res) => {
 	const uid = req.params.id;
 	const metadata = filestorage.getFilebyUID(uid);
+	if (!metadata) {
+		res.render('NoFileOnserver', { uid });
+		return;
+	}
 	publishEvent("ApiDownloadRequest", `Request para el id ${uid}`);
 	res.setHeader('Content-Disposition', `attachment; filename="${metadata.filename}"`);
 	res.setHeader('Content-Type', 'application/octet-stream');
