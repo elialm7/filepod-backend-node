@@ -9,7 +9,8 @@ const getPreview = asyncHandler(async (req, res) => {
         res.render('NoFileOnserver', { uid });
         return;
     }
-    res.render('preview', { uid });
+    const filename = metadata.filename;
+    res.render('preview', { uid, filename });
 });
 
 
