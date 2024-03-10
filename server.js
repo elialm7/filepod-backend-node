@@ -7,6 +7,7 @@ require('dotenv').config();
 
 
 const app = express();
+app.use(express.static('./public'));
 const port = process.env.PORT;
 const server = http.createServer(app);
 const io = socketio(server, {
@@ -17,6 +18,7 @@ const io = socketio(server, {
 });
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'src/views'));
+
 const socketManager = require('./src/socket/SocketManager.js');
 app.use('/file/download', require('./src/routes/FileAccessRoute.js'));
 app.use('/file/preview', require('./src/routes/FilePreviewRouter.js'));
