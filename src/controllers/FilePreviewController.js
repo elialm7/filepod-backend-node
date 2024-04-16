@@ -14,5 +14,4 @@ const getPreview = asyncHandler(async (req, res) => {
 });
 
 
-
 module.exports = getPreview; 
