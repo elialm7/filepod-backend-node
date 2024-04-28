@@ -19,13 +19,22 @@ class UserFileMongoRepository{
                     userfilename: userfile.filename, 
                     userfiledata: userfile.filedata, 
                     usertimestamp: userfile.timestamp, 
-                    userdwtimes: userfile.dwtimes
+                    userdwtimes: userfile.dwtimes, 
+                    userfilesize: userfile.filesize
                 };
                 const inserted = await UserFileModel.create(datatoInsert);
-                return inserted; 
+                return {
+                    uid: inserted.userfileid, 
+                    pin: inserted.userfilepin, 
+                    filename: inserted.userfilename, 
+                    filedata: inserted.userfiledata, 
+                    timestamp: inserted.usertimestamp, 
+                    dwtimes: inserted.userdwtimes, 
+                    filesize: inserted.userfilesize
+                }; 
             }catch(e){
                 log.error('Error trying to create a new row for the Userfile');
-                log.error(e);
+                return -1;
             }
     }
     async findbyuid(uid){
@@ -37,9 +46,18 @@ class UserFileMongoRepository{
             let found = await UserFileModel.findOne({
                 userfileid: uid
             });
-            return found;
+            return {
+                uid: found.userfileid, 
+                pin: found.userfilepin, 
+                filename: found.userfilename, 
+                filedata: found.userfiledata, 
+                timestamp: found.usertimestamp, 
+                dwtimes: found.userdwtimes, 
+                filesize: found.userfilesize
+            };
         }catch(e){
-            log.error(`Error executing findbyuid : ${e}`);
+            log.error(`Error executing findbyuid `);
+            return -1;
         }
 
     }
@@ -52,14 +70,22 @@ class UserFileMongoRepository{
             let found = await UserFileModel.findOne({
                 userfilepin: pin
             });
-            return found;
+           return {
+                uid: found.userfileid, 
+                pin: found.userfilepin, 
+                filename: found.userfilename, 
+                filedata: found.userfiledata, 
+                timestamp: found.usertimestamp, 
+                dwtimes: found.userdwtimes, 
+                filesize: found.userfilesize
+            };
         }catch(e){
-            log.error(`Error executing findbypin : ${e}`);
+            log.error(`Error executing findbypin`);
+            return -1;
         }
     }
 
     async updatebyuid(updateduserfile){
-
         if(!updateduserfile){
             log.error('Userfile is not defined');
             return;
@@ -71,14 +97,43 @@ class UserFileMongoRepository{
                 userfilename: updateduserfile.filename, 
                 userfiledata: updateduserfile.filedata, 
                 usertimestamp: updateduserfile.timestamp, 
-                userdwtimes: updateduserfile.dwtimes
+                userdwtimes: updateduserfile.dwtimes, 
+                userfilesize: updateduserfile.filesize
             };
             let updated = await UserFileModel.updateOne(datatoupdate);
-            return updated;
+            return {
+                uid: updated.userfileid, 
+                pin: updated.userfilepin, 
+                filename: updated.userfilename, 
+                filedata: updated.userfiledata, 
+                timestamp: updated.usertimestamp, 
+                dwtimes: updated.userdwtimes, 
+                filesize: updated.userfilesize
+            };
         }catch(e){
                 log.error('There was an error during the update');
+                return -1;
         }
+    }
 
+    async deletebyuid(uid){
+        try{
+            let deleted = await UserFileModel.deleteOne({
+                userfileid:  uid
+            });
+            return {
+                uid: deleted.userfileid, 
+                pin: deleted.userfilepin, 
+                filename: deleted.userfilename, 
+                filedata: deleted.userfiledata, 
+                timestamp: deleted.usertimestamp, 
+                dwtimes: deleted.userdwtimes, 
+                filesize: deleted.userfilesize
+            };
+        }catch(e){
+            log.error(`There was an error trying to update`);
+            return -1;
+        }
     }
 }
 

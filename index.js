@@ -4,28 +4,23 @@ const path = require('path');
 const express = require('express');
 require('dotenv').config();
 
-
-// imports of the other layers
-
 const {connectMongoose, disconnectMongoose} = require('./database/MongooseConnection');
 const getLogger = require('./logs/WinstonLog');
-const UploadFileUseCase = require('./usecase/ForSocket/UploadFileUseCase');
+const UploadFileUseCase = require('./usecase/ForSocket/FileUploadUseCase');
 const { RegisterClientEvents } = require('./socket/EventDispatcher'); 
 const UserFileMongoRepository = require('./database/UserFileMongoRepository');
-/*
-const FileDownloadController = require('../../adapters/Controllers/FileDownloadController');
-const FilePreviewController = require('../../adapters/Controllers/FilePreviewController');
+const FileDownloadController = require('./Controllers/FileDownloadController');
+const FilePreviewController = require('./Controllers/FilePreviewController');
+const FileDownloadUseCase = require('./usecase/ForApi/FileDownloadUseCase');
+const FilepreviewUseCase = require('./usecase/ForApi/FilePreviewUseCase');
+let userrepo = new UserFileMongoRepository();
+let downloadController = new FileDownloadController(new FileDownloadUseCase(userrepo));
+let previewController = new FilePreviewController(new FilepreviewUseCase(userrepo));
 
-let downloadController = new FileDownloadController();
-let previewController = new FilePreviewController();*/
-
-//constants defintion
 const PORT = process.env.PORT;
 const DATABASE_URL = process.env.DB;
 const PUBLIC = './public';
 const templateRender = 'ejs';
-
-//logger
 const log = getLogger();
 
 
@@ -40,12 +35,12 @@ const io = socketio(server, {
     maxHttpBufferSize: 50*1024*1024
 });
 app.set('view engine', templateRender);
-app.set('views', path.join(__dirname, 'infra/Presenters'));
+app.set('views', path.join(__dirname, 'views'));
 
 
-/*app.get('/file/download/:id',downloadController.download.bind(downloadController));
+app.get('/file/download/:id',downloadController.download.bind(downloadController));
 app.get('/file/preview/:id', previewController.preview.bind(previewController));
-*/
+
 
 io.on('connection', socket => {
     log.info(`User ${socket.id} connected.`);

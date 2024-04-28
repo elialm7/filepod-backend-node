@@ -10,7 +10,7 @@ class ClientEventdispatcher {
         this.socket = socket;
         this.uploadusecase = uploadusecase;
         this.onUploadfile = this.onUploadfile.bind(this);
-
+        this.oncheckpin = this.oncheckpin.bind(this);
     }
     init(){
         this.onUpload();
@@ -18,6 +18,7 @@ class ClientEventdispatcher {
     onUpload(){
         log.info(`Registering events for client with id ${this.socket.id}`);
         this.socket.on('enviar-archivo', this.onUploadfile);
+        this.socket.on('check-pin', this.oncheckpin);
     }
 
     parsedata(dwtimes, filename, filedata, filesize){
@@ -37,6 +38,13 @@ class ClientEventdispatcher {
         this.uploadusecase.executeCase(userfile);
         this.socket.emit('archivo-recibido',{uid, pin});
     }
+
+    oncheckpin(pin){
+        let result = this.uploadusecase.checkpin(pin);
+        this.socket.emit('check-result', result);
+    }
+
+
 }
 const RegisterClientEvents = (socket, uploadusecase) =>{
     if(!socket){

@@ -4,10 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="/logo.png">
-    <title>
-        <%=filename%>
-    </title>
+    <link rel="icon" href="/assets/logo.png">
+    <title>Archivo no Encontrado</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -64,20 +62,13 @@
             text-align: center;
         }
 
-        button {
-            background-color: #ab8a1d;
-            color: #ffffff;
-            border: none;
-            padding: 10px 20px;
-            font-size: 16px;
-            font-weight: bold;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
+
+        b {
+            color: #ab8a1d;
         }
 
-        button:hover {
-            background-color: #4d3c05;
+        .header h1:hover {
+            cursor: pointer;
         }
 
         .footer {
@@ -118,25 +109,19 @@
 <body>
     <div class="header">
         <h1 onclick="location.href = 'https://filepod-c7a77.web.app/'">
-            <img src='/logo.png' width="30" style="vertical-align: middle; margin-right: 10px;">
+            <img src='/assets/logo.png' width="30" style="vertical-align: middle; margin-right: 10px;">
             File Pod
         </h1>
         <a href="https://github.com/elialm7/filepod-backend-node" target="_blank">
-            <img src="/github-mark-white.png" alt="GitHub" width="30">
+            <img src="/assets/github-mark-white.png" alt="GitHub" width="30">
         </a>
     </div>
     <div class="container">
         <div class="message">
-            <h2>Preview de Descarga</h2>
-            <p>Nombre del Archivo: <b style="color: #ab8a1d">
-                    <%=filename%>
-                </b></p>
-            <p>ID del Archivo: <b style="color: #ab8a1d">
-                    <%= uid %>
-                </b></p>
-            <form action="/file/download/<%= uid %>" method="get">
-                <button type="submit">Descargar</button>
-            </form>
+            <h1 style="color: #393939;">Archivo no Encontrado</h1>
+            <p>El archivo con ID <b>
+                    <%= id %>
+                </b> ya no existe en el servidor.</p>
         </div>
     </div>
     <div class="footer">
