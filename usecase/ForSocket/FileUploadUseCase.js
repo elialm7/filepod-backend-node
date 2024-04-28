@@ -22,7 +22,7 @@ class UploadFileUseCase {
         if(result){
            return {
             status: 'ok', 
-            uid: result.uid;
+            uid: result.uid
            };
         }else {
             return {
