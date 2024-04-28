@@ -1,17 +1,20 @@
 const UserFile = require("../../domain/UserFile");
 const getLogger = require("../../logs/WinstonLog");
+const log = getLogger();
 class UploadFileUseCase {
-    #log = getLogger();
     #UserFileRepo; 
     constructor(UserFileRepo){
         this.#UserFileRepo = UserFileRepo;
     }
 
     executeCase(userfileobj){
-        if(userfileobj instanceof UserFile){
-            this.#log.info(`${userfileobj.toString()}`);
+        this.log(`uploadfilecase executed.`);
+        const result = this.#UserFileRepo.create(userfileobj);
+        if(result){
+            log.info('document inserted');
+        }else{
+            log.error('document not inserted.');
         }
-           
     }
 }
 

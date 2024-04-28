@@ -9,7 +9,6 @@ class ClientEventdispatcher {
     constructor(socket, uploadusecase){
         this.socket = socket;
         this.uploadusecase = uploadusecase;
-        this.onUploadPrototype = this.onUploadPrototype.bind(this);
         this.onUploadfile = this.onUploadfile.bind(this);
 
     }
@@ -17,8 +16,7 @@ class ClientEventdispatcher {
         this.onUpload();
     }
     onUpload(){
-        log.info('Registering events for the clients.');
-        this.socket.on('upload', this.onUploadPrototype);
+        log.info(`Registering events for client with id ${this.socket.id}`);
         this.socket.on('enviar-archivo', this.onUploadfile);
     }
 
@@ -32,7 +30,7 @@ class ClientEventdispatcher {
                    .withtimestamp(timestamp).build();
     }
     onUploadfile(input){
-        log.info('Executing the use case for the client frontend');
+        log.info('Executing the use case for the client');
         const userfile  = this.parsedata(input.downloads, input.filename, input.filedata, input.filesize);
         const uid = userfile.uid;
         const pin = userfile.pin; 
@@ -42,11 +40,11 @@ class ClientEventdispatcher {
 }
 const RegisterClientEvents = (socket, uploadusecase) =>{
     if(!socket){
-        log.error('The socket connectionis undefined, aborting process.');
+        log.error('The socket connection is undefined, aborting process.');
         return;
     }
     const clientdispatcher = new ClientEventdispatcher(socket, uploadusecase);
-    return clientdispatcher;
+    clientdispatcher.init();
 };
 
 module.exports = {RegisterClientEvents};

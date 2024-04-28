@@ -76,6 +76,19 @@ class UserFile{
     get pin(){
         return this.#pin 
     }
+    get filename(){
+        return this.#filename;
+    }
+    get filedata(){
+        return this.#filedata;
+    }
+    get dwtimes(){
+        return this.#dwtimes; 
+    }
+    get filesize(){
+        return this.#filesize;
+    }
+
     toString() {
         return `MyClass {
             UID: ${this.#uid},

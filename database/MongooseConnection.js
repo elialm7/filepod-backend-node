@@ -6,8 +6,18 @@ const connectMongoose = (url) =>{
     mongoose.connect(url).then(()=>{
         log.info('Connection to mongodb succesful');
     }).catch((err)=>{
-        log.error(`error on connecting to mongodb: ${err}`);
+        log.error(`error on connecting to mongodb`);
     });
-}
+};
+const disconnectMongoose = ()=>{
+    mongoose.disconnect().then(()=>{
+        log.info('Diconnection from mongodb succesful.');
+    }).catch((err)=>{
+            log.erro(`Error from disconnecting from mongodb}`);
+    });
+};
 
-module.exports = connectMongoose; 
+module.exports = {
+     connectMongoose, 
+     disconnectMongoose
+};

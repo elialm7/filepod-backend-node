@@ -1,18 +1,19 @@
-const UserFile = require("../../domain/UserFile");
-const mongoose = require('mongoose');
 
-//definition of the schema
+const mongoose = require('mongoose');
+const UserFile = require('../domain/UserFile');
+
 const UserFileCollectionSchema = {
-    uid: String, 
-    pin: String, 
-    filename: String, 
-    filedata: String, 
-    timestamp: String 
+    userfileid: String, 
+    userfilepin: Number, 
+    userfilename: String, 
+    userfiledata: Buffer,  
+    usertimestamp: Date, 
+    userdwtimes: Number
 };
 const ModelMetaData = {
     modelname: 'UserFile', 
     collectionName: 'ufiles'
-}
+};
 const UserFileSchema = new mongoose.Schema(UserFileCollectionSchema);
 UserFileSchema.loadClass(UserFile);
 const UserFileModel = mongoose.model(
