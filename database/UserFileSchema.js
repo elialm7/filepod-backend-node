@@ -8,7 +8,8 @@ const UserFileCollectionSchema = {
     userfilename: String, 
     userfiledata: Buffer,  
     usertimestamp: Date, 
-    userdwtimes: Number
+    userdwtimes: Number,
+    userfilesize: Number
 };
 const ModelMetaData = {
     modelname: 'UserFile', 

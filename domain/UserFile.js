@@ -1,103 +1,74 @@
 class UserFile{
-
-    #uid;
-    #pin;
-    #filename;
-    #filedata;
-    #filesize;
-    #dwtimes;
-    #timestamp;
-
     static builder = class {
-        #uid;
-        #pin;
-        #filename;
-        #filedata;
-        #filesize;
-        #dwtimes;
-        #timestamp;
+        #uidb;
+        #pinb;
+        #filenameb;
+        #filedatab;
+        #filesizeb;
+        #dwtimesb;
+        #timestampb;
 
 
         withuid(uid){
-            this.#uid = uid;
+            this.#uidb = uid;
             return this;
         }
         withpin(pin){
-            this.#pin = pin;
+            this.#pinb = pin;
             return this;
         }
         withfilename(filename){
-            this.#filename = filename;
+            this.#filenameb = filename;
             return this;
         }
         withfiledata(filedata){
-            this.#filedata = filedata;
+            this.#filedatab = filedata;
             return this;
         }
         withfilesize(filesize){
-            this.#filesize = filesize;
+            this.#filesizeb = filesize;
             return this;
         }
         withdwtimes(dwtimes){
-            this.#dwtimes = dwtimes;
+            this.#dwtimesb = dwtimes;
             return this;
         }
         withtimestamp(timestamp){
-            this.#timestamp = timestamp;
+            this.#timestampb = timestamp;
             return this;
         }
         build(){
             const usefile = new UserFile(
-                this.#uid, 
-                this.#pin, 
-                this.#filename, 
-                this.#filedata, 
-                this.#timestamp, 
-                this.#dwtimes, 
-                this.#filesize
+                this.#uidb, 
+                this.#pinb, 
+                this.#filenameb, 
+                this.#filedatab, 
+                this.#timestampb, 
+                this.#dwtimesb, 
+                this.#filesizeb
             );
             return usefile;
         }
     }
 
     constructor(uid, pin, filename, filedata, timestamp, dwtimes, filesize){
-        this.#uid = uid; 
-        this.#pin  = pin;
-        this.#filename = filename; 
-        this.#filedata = filedata; 
-        this.#timestamp = timestamp;
-        this.#dwtimes = dwtimes;
-        this.#filesize = filesize;
-    }
-
-    get uid(){
-        return this.#uid;
-    }
-    get pin(){
-        return this.#pin 
-    }
-    get filename(){
-        return this.#filename;
-    }
-    get filedata(){
-        return this.#filedata;
-    }
-    get dwtimes(){
-        return this.#dwtimes; 
-    }
-    get filesize(){
-        return this.#filesize;
+        this.uid = uid; 
+        this.pin  = pin;
+        this.filename = filename; 
+        this.filedata = filedata; 
+        this.timestamp = timestamp;
+        this.dwtimes = dwtimes;
+        this.filesize = filesize;
     }
 
     toString() {
         return `MyClass {
-            UID: ${this.#uid},
-            PIN: ${this.#pin},
-            Filename: ${this.#filename},
-            Filedata: ${this.#filedata},
-            Filesize: ${this.#filesize},
-            Download Times: ${this.#dwtimes},
-            Timestamp: ${this.#timestamp}
+            UID: ${this.uid},
+            PIN: ${this.pin},
+            Filename: ${this.filename},
+            Filesize: ${this.filesize},
+            Download Times: ${this.dwtimes},
+            Timestamp: ${this.timestamp}
         }`;
     }
 

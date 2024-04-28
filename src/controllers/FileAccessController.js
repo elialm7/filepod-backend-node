@@ -9,10 +9,7 @@ const getDownload = asyncHandler(async (req, res) => {
 		res.render('NoFileOnserver', { uid });
 		return;
 	}
-	publishEvent("ApiDownloadRequest", `Request para el id ${uid}`);
-	res.setHeader('Content-Disposition', `attachment; filename="${metadata.filename}"`);
-	res.setHeader('Content-Type', 'application/octet-stream');
-	res.send(metadata.filedata);
+	
 	publishEvent("download", "la descarga ha comenzado por el servidor.");
 	filestorage.deleteFilebyUID(uid);
 	publishEvent("FileDeletion", `Se ha borrado de la memoria el archivo con id ${uid}`);

@@ -16,6 +16,20 @@ class UploadFileUseCase {
             log.error('document not inserted.');
         }
     }
+
+    async checkpin(pin){
+        const result = await this.#UserFileRepo.findbypin(pin);
+        if(result){
+           return {
+            status: 'ok', 
+            uid: result.uid;
+           };
+        }else {
+            return {
+                status: 'failed'
+            };
+        }
+    }
 }
 
 
