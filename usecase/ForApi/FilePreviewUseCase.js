@@ -3,8 +3,9 @@ const getLogger = require("../../logs/WinstonLog");
 
 const log = getLogger();
 class FilepreviewUseCase{
-    constructor(userfilerepo){
+    constructor(userfilerepo, event){
         this.userfilerepo = userfilerepo;
+        this.event = event;
     }
    executeCasebyuid(id){
         if(!id){

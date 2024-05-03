@@ -1,13 +1,14 @@
-const mongoose = require('mongoose');
 const getLogger = require("../logs/WinstonLog");
 const UserFile = require("../domain/UserFile");
 const UserFileModel = require('./UserFileSchema');
 const log = getLogger();
 class UserFileMongoRepository{
-    constructor(){
-        
+
+    constructor(event){
+        this.event = event;    
     }
     async create(userfile){
+
             if(!userfile || !(userfile instanceof UserFile)){
                 log.error("The userfile param is either undefined or not and instace of UserFile");
                 return;
@@ -23,6 +24,7 @@ class UserFileMongoRepository{
                     userfilesize: userfile.filesize
                 };
                 const inserted = await UserFileModel.create(datatoInsert);
+                this.event.emit('operation', 'UserFileInsertion', 'The userfile has been inserted to mongo db sucessfully');
                 return {
                     uid: inserted.userfileid, 
                     pin: inserted.userfilepin, 
@@ -46,6 +48,7 @@ class UserFileMongoRepository{
             let found = await UserFileModel.findOne({
                 userfileid: uid
             });
+            this.event.emit('operation', 'UserFileFound', 'a userfiledocument has been found');
             return {
                 uid: found.userfileid, 
                 pin: found.userfilepin, 
@@ -70,6 +73,7 @@ class UserFileMongoRepository{
             let found = await UserFileModel.findOne({
                 userfilepin: pin
             });
+            this.event.emit('operation', 'UserFileFound', 'a userfiledocument has been found');
            return {
                 uid: found.userfileid, 
                 pin: found.userfilepin, 
@@ -80,7 +84,7 @@ class UserFileMongoRepository{
                 filesize: found.userfilesize
             };
         }catch(e){
-            log.error(`Error executing findbypin`);
+            log.error(`Error executing findbypin: ${e}`);
             return -1;
         }
     }
@@ -101,6 +105,7 @@ class UserFileMongoRepository{
                 userfilesize: updateduserfile.filesize
             };
             let updated = await UserFileModel.updateOne(datatoupdate);
+            this.event.emit('operation', 'UserFileUpdated', 'a userfiledocument has been Updated');
             return {
                 uid: updated.userfileid, 
                 pin: updated.userfilepin, 
@@ -121,6 +126,7 @@ class UserFileMongoRepository{
             let deleted = await UserFileModel.deleteOne({
                 userfileid:  uid
             });
+            this.event.emit('operation', 'UserFileDeleted', 'a userfiledocument has been deleted.');
             return {
                 uid: deleted.userfileid, 
                 pin: deleted.userfilepin, 
