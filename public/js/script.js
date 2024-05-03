@@ -32,10 +32,15 @@ form.addEventListener('submit', async (e) => {
     try {
 
         socket.emit('enviar-archivo', fileData);
-
         socket.on('archivo-recibido', ({uid, pin})=>{
+            socket.emit('check-pin', pin);
+            socket.on('check-result', ({status, uid})=>{
+                console.log(`${status} || ${uid}`);
+            });
             alert(`pin: ${pin} || uid: ${uid}`);
         });
+
+       
 
     } catch (error) {
         console.error('Error al enviar formulario:', error);

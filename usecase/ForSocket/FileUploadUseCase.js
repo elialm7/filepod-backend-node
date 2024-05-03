@@ -8,7 +8,7 @@ class UploadFileUseCase {
     }
 
     executeCase(userfileobj){
-        this.log(`uploadfilecase executed.`);
+        log.info(`upload file case executed.`);
         const result = this.#UserFileRepo.create(userfileobj);
         if(result){
             log.info('document inserted');
@@ -26,7 +26,8 @@ class UploadFileUseCase {
            };
         }else {
             return {
-                status: 'failed'
+                status: 'failed', 
+                uid: -1
             };
         }
     }

@@ -13,9 +13,12 @@ const FileDownloadController = require('./Controllers/FileDownloadController');
 const FilePreviewController = require('./Controllers/FilePreviewController');
 const FileDownloadUseCase = require('./usecase/ForApi/FileDownloadUseCase');
 const FilepreviewUseCase = require('./usecase/ForApi/FilePreviewUseCase');
-let userrepo = new UserFileMongoRepository();
-let downloadController = new FileDownloadController(new FileDownloadUseCase(userrepo));
-let previewController = new FilePreviewController(new FilepreviewUseCase(userrepo));
+const { EventEmitter } = require('stream');
+let eventEmitter = new EventEmitter();
+let userrepo = new UserFileMongoRepository(eventEmitter);
+let downloadController = new FileDownloadController(new FileDownloadUseCase(userrepo,eventEmitter), eventEmitter);
+let previewController = new FilePreviewController(new FilepreviewUseCase(userrepo,eventEmitter), eventEmitter);
+
 
 const PORT = process.env.PORT;
 const DATABASE_URL = process.env.DB;
@@ -46,9 +49,8 @@ io.on('connection', socket => {
     log.info(`User ${socket.id} connected.`);
     socket.on('disconnect', ()=>{
         log.info(`User ${socket.id} disconnected`);
-        disconnectMongoose();
     });
-    RegisterClientEvents(socket, new UploadFileUseCase(new UserFileMongoRepository()));
+    RegisterClientEvents(socket, new UploadFileUseCase(userrepo),eventEmitter);
 });
 server.listen(PORT, ()=>{
     connectMongoose(DATABASE_URL);
