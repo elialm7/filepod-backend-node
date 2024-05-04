@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const getLogger = require('../logs/wlog');
+const getLogger = require('../logs/log');
 
 const log = getLogger();
 const connectMongoose = (url) =>{
