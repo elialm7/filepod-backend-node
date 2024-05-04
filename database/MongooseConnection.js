@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const getLogger = require('../logs/WinstonLog.js');
+const getLogger = require('../logs/WinstonLog');
 
 const log = getLogger();
 
