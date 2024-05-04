@@ -1,5 +1,5 @@
 
-const getLogger = require("../../logs/log");
+const getLogger = require("../../error/winstong");
 
 const log = getLogger();
 class FilepreviewUseCase{

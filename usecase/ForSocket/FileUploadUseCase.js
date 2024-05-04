@@ -1,5 +1,5 @@
 const UserFile = require("../../domain/UserFile");
-const getLogger = require("../../logs/log");
+const getLogger = require("../../error/winstong");
 const log = getLogger();
 class UploadFileUseCase {
     #UserFileRepo; 
