@@ -1,4 +1,4 @@
-const getLogger = require("../logs/log");
+const getLogger = require("../error/winstong");
 const UserFile = require("../domain/UserFile");
 const UserFileModel = require('./UserFileSchema');
 const log = getLogger();

@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const getLogger = require('../logs/log');
+const getLogger = require("../error/winstong.js");
 
 const log = getLogger();
 const connectMongoose = (url) =>{
