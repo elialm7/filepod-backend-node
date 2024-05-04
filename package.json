@@ -5,8 +5,8 @@
   "main": "server.js",
   "scripts": {
     "test": "jest ",
-    "dev": "nodemon index.js",
-    "prod": "node index.js"
+    "dev": "nodemon server.js",
+    "prod": "node server.js"
   },
   "author": "R. Elias Ojeda Almada",
   "license": "MIT",
