@@ -5,7 +5,7 @@ const express = require('express');
 require('dotenv').config();
 
 const {connectMongoose} = require('./database/MongooseConnection');
-const getLogger = require('./logs/wlog');
+const getLogger = require('./logs/log');
 const UploadFileUseCase = require('./usecase/ForSocket/FileUploadUseCase');
 const { RegisterClientEvents } = require('./socket/EventDispatcher'); 
 const UserFileMongoRepository = require('./database/UserFileMongoRepository');
