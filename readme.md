@@ -10,6 +10,7 @@ El Backend de FilePod está construido para proporcionar una infraestructura rob
 - **Node.js**: El backend se desarrolla principalmente utilizando Node.js, proporcionando un entorno de ejecución escalable y eficiente.
 - **Express.js**: Express.js se utiliza como el marco de aplicación web para Node.js, simplificando la configuración de rutas de API y middleware.
 - **socket.io**: Socket.IO es una biblioteca de JavaScript que permite la comunicación bidireccional en tiempo real entre clientes web y servidores. Abstrae la complejidad de las conexiones WebSocket y proporciona características como comunicación basada en eventos, soporte de salas para agrupar clientes y mecanismos de recuperación sin problemas para entornos donde las conexiones WebSocket no son compatibles.
+- **Mongodb**: MongoDB es una base de datos de documentos de código abierto que proporciona alta escalabilidad, rendimiento y flexibilidad
 
 ## Frontend
 

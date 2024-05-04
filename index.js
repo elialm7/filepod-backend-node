@@ -4,7 +4,7 @@ const path = require('path');
 const express = require('express');
 require('dotenv').config();
 
-const {connectMongoose, disconnectMongoose} = require('./database/MongooseConnection');
+const {connectMongoose} = require('./database/MongooseConnection');
 const getLogger = require('./logs/WinstonLog');
 const UploadFileUseCase = require('./usecase/ForSocket/FileUploadUseCase');
 const { RegisterClientEvents } = require('./socket/EventDispatcher'); 
@@ -48,8 +48,10 @@ app.get('/file/preview/:id', previewController.preview.bind(previewController));
 io.on('connection', socket => {
     log.info(`User ${socket.id} connected.`);
     socket.on('disconnect', ()=>{
+        this.eventEmitter.emi('operation', 'DisconnectionOperation',`A user client with id ${socket.id} was disconnected`);
         log.info(`User ${socket.id} disconnected`);
     });
+    this.eventEmitter.emit('operation', 'ConnectionOperation', `A user client with id ${socket.id} is connected`);
     RegisterClientEvents(socket, new UploadFileUseCase(userrepo),eventEmitter);
 });
 server.listen(PORT, ()=>{

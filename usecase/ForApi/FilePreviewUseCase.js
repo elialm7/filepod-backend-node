@@ -8,6 +8,7 @@ class FilepreviewUseCase{
         this.event = event;
     }
    executeCasebyuid(id){
+     this.event.emit('operation', 'FilePreviewCase', 'the executecasebyuid is being performed.');
         if(!id){
             log.error(`uid is undefined.`);
             return -1;
@@ -16,6 +17,7 @@ class FilepreviewUseCase{
     }
 
     executeCasebypin(pin){
+        this.event.emit('operation', 'FilePreviewCase', 'the executecasebypin is being performed.');
         if(!pin){
             log.error(`pin is not defined.`);
             return -1;
