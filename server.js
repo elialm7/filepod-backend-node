@@ -48,10 +48,10 @@ app.get('/file/preview/:id', previewController.preview.bind(previewController));
 io.on('connection', socket => {
     log.info(`User ${socket.id} connected.`);
     socket.on('disconnect', ()=>{
-        this.eventEmitter.emi('operation', 'DisconnectionOperation',`A user client with id ${socket.id} was disconnected`);
+        eventEmitter.emit('operation', 'DisconnectionOperation',`A user client with id ${socket.id} was disconnected`);
         log.info(`User ${socket.id} disconnected`);
     });
-    this.eventEmitter.emit('operation', 'ConnectionOperation', `A user client with id ${socket.id} is connected`);
+    eventEmitter.emit('operation', 'ConnectionOperation', `A user client with id ${socket.id} is connected`);
     RegisterClientEvents(socket, new UploadFileUseCase(userrepo),eventEmitter);
 });
 server.listen(PORT, ()=>{
