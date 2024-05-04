@@ -1,5 +1,5 @@
 
-const getLogger = require("../logs/WinstonLog");
+const getLogger = require("../logs/wlog");
 const createPin = require("../usecase/shared/PinGenerator");
 const UserFile = require("../domain/UserFile");
 const createHash = require("../usecase/shared/HashGenerator");

@@ -1,8 +1,7 @@
 const mongoose = require('mongoose');
-const getLogger = require('../logs/WinstonLog');
+const getLogger = require('../logs/wlog');
 
 const log = getLogger();
-
 const connectMongoose = (url) =>{
     mongoose.connect(url).then(()=>{
         log.info('Connection to mongodb succesful');
