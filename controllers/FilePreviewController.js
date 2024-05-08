@@ -15,7 +15,7 @@ class FilePreviewController{
         const userfile = await this.previewfileusecase.executeCasebyuid(id);
         if(userfile === -1){
             this.event.emit('operation', 'PreviewRequestFailed', `A preview request failed for id ${id}`);
-            res.render('NofileOnserver', {id});
+            res.render('NoFileOnserver', {id});
             return;
         }
         this.event.emit('operation', 'PreviewRequestSuccesful', `A preview reques succesful for id${id}`);
