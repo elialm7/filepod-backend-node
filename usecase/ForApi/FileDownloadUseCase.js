@@ -16,13 +16,13 @@ class FileDownloadUseCase{
         }
         if(userfile.dwtimes === 1){
             this.event.emit('operation', 'FileDelete','Deleting from db the file with last downlaod');
-            return this.userfilerepo.deletebyuid(id);   
+            return await this.userfilerepo.deletebyuid(id);   
         }
         let newdw = userfile.dwtimes - 1; 
         userfile.dwtimes = newdw; 
         this.event.emit('operation', 'FileUpdate', 'the file has been updated from the database');
-        let updated = await this.userfilerepo.updatebyuid(userfile);
-        return updated;
+        await this.userfilerepo.updatebyuid(userfile);
+        return userfile;
     }
 
 }
