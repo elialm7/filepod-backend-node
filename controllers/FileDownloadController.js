@@ -17,6 +17,16 @@ class FileDownloadController{
             this.event.emit('operation', 'DownloadRequestFailed',`A download request failed for id ${id}`);
             return;
         }
+        if(userfile === undefined){
+            res.render('NofileOnserver', {id});
+            this.event.emit('operation', 'DownloadRequestFailed',`A download request failed for id ${id}`);
+            return;
+        }
+        if(userfile === null){
+            res.render('NofileOnserver', {id});
+            this.event.emit('operation', 'DownloadRequestFailed',`A download request failed for id ${id}`);
+            return;
+        }
         this.event.emit('operation', 'DownloadRequestSuccess',`A download request successful for id ${id}`);
 	    res.setHeader('Content-Disposition', `attachment; filename="${userfile.filename}"`);
 	    res.setHeader('Content-Type', 'application/octet-stream');
