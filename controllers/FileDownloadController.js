@@ -12,6 +12,7 @@ class FileDownloadController{
         const id = this.idtostring(req.params.id);
         this.event.emit('operation', 'DownloadRequest',`A download request to be performed for id ${id}`);
         const userfile = await this.downloadusecase.executeCase(id);
+        console.log(userfile);
         if(userfile === -1){
             res.render('NofileOnserver', {id});
             this.event.emit('operation', 'DownloadRequestFailed',`A download request failed for id ${id}`);
