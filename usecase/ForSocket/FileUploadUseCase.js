@@ -19,17 +19,25 @@ class UploadFileUseCase {
 
     async checkpin(pin){
         const result = await this.#UserFileRepo.findbypin(pin);
-        if(result){
-           return {
-            status: 'ok', 
-            uid: result.uid
-           };
-        }else {
+        if(!result){
             return {
                 status: 'failed', 
                 uid: -1
             };
         }
+        if(result ===-1){
+            return {
+                status: 'failed', 
+                uid: -1
+            };
+          
+        }
+     
+        return {
+            status: 'ok', 
+            uid: result.uid
+        };
+        
     }
 }
 
