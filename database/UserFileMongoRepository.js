@@ -95,6 +95,9 @@ class UserFileMongoRepository{
             return;
         }
         try{
+            const filter = {
+                userfileid: updateduserfile.uid
+            };
             const datatoupdate = {
                 userfileid: updateduserfile.uid, 
                 userfilepin : updateduserfile.pin,
@@ -104,7 +107,7 @@ class UserFileMongoRepository{
                 userdwtimes: updateduserfile.dwtimes, 
                 userfilesize: updateduserfile.filesize
             };
-            let updated = await UserFileModel.updateOne(datatoupdate);
+            let updated = await UserFileModel.updateOne(filter, datatoupdate);
             this.event.emit('operation', 'UserFileUpdated', 'a userfiledocument has been Updated');
             return {
                 uid: updated.userfileid, 
