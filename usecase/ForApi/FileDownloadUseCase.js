@@ -8,6 +8,12 @@ class FileDownloadUseCase{
     async executeCase(id){
         this.event.emit('operation', 'ExecutingFileDownloadUseCase', 'Executing the file downloadusecase');
         const userfile = await this.userfilerepo.findbyuid(id);
+        if(userfile === null){
+            return -1;
+        }
+        if(userfile === undefined){
+            return -1;
+        }
         if(userfile.dwtimes === 1){
             this.event.emit('operation', 'FileDelete','Deleting from db the file with last downlaod');
             return this.userfilerepo.deletebyuid(id);   
