@@ -70,6 +70,7 @@ class UserFileMongoRepository{
             return;
         }
         try{
+            log.debug(pin);
             let found = await UserFileModel.findOne({
                 userfilepin: pin
             });
