@@ -21,8 +21,8 @@ class FileDownloadUseCase{
         let newdw = userfile.dwtimes - 1; 
         userfile.dwtimes = newdw; 
         this.event.emit('operation', 'FileUpdate', 'the file has been updated from the database');
-        await this.userfilerepo.updatebyuid(userfile);
-        return userfile;
+        let updated = await this.userfilerepo.updatebyuid(userfile);
+        return updated;
     }
 
 }
