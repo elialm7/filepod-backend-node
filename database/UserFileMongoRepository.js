@@ -136,6 +136,7 @@ class UserFileMongoRepository{
                 userfileid:  uid
             });
             this.event.emit('operation', 'UserFileDeleted', 'a userfiledocument has been deleted.');
+            log.debug(deleted);
             return {
                 uid: deleted.userfileid, 
                 pin: deleted.userfilepin, 
