@@ -73,6 +73,7 @@ class UserFileMongoRepository{
             let found = await UserFileModel.findOne({
                 userfilepin: pin
             });
+            log.debug(found);
             this.event.emit('operation', 'UserFileFound', 'a userfiledocument has been found');
            return {
                 uid: found.userfileid, 
