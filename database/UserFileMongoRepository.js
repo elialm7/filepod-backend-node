@@ -76,6 +76,7 @@ class UserFileMongoRepository{
             });
             log.debug(found);
             this.event.emit('operation', 'UserFileFound', 'a userfiledocument has been found');
+            log.debug(found.userfileid);
            return {
                 uid: found.userfileid, 
                 pin: found.userfilepin, 
