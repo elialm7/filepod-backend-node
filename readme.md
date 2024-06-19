@@ -1,3 +1,6 @@
+#service status: El servicio ha cumplido su objetivo (defender una materia).
+ por lo tanto el servicio queda suspendido y este codigo no sera mantenido desde hoy (18/06/2024)
+
 # Backend de FilePod
 Repositorio del backend para el proyecto FilePod, desarrollado como parte de un proyecto universitario. FilePod es un sistema de gestión de archivos diseñado para facilitar el intercambio y organización de archivos entre usuarios. Este repositorio backend sirve como la implementación del lado del servidor del sistema FilePod.
 
